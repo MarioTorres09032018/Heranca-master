@@ -5,7 +5,7 @@ namespace Aula
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             CadastroPessoal();
 
@@ -16,10 +16,10 @@ namespace Aula
 
         private static void CadastroCargo()
         {
-            Escrever("Digite o Cargo Exercido.............:");
+            Escrever("Digite o Cargo Exercido ou Informações dos Cargos Exercidos:");
             Escrever("1 - Vendedor");
             Escrever("2 - ADM");
-            Escrever("3 - Analista TI");   //alteração teste de mudanças na branch
+            Escrever("3 - Analista TI");
 
             string escolha = Console.ReadLine();
 
@@ -36,13 +36,12 @@ namespace Aula
                     case "3":
                     CadastroAnalistaTICompleto();
                     break;
-
+                
                 default:
                     Escrever("Cargo nao cadastrado.");
                     break;
             }
         }
-
         private static void CadastroVendedorCompleto()
         {
             Escrever("Digite o Nome do Cargo:");
@@ -64,8 +63,9 @@ namespace Aula
 
             Vendedor vend = new Vendedor(nome, descricao, salario, totalVendas, porc);
 
-            Escrever("Seu Salário Este Mês Mais Comissão Será de................:");
+            Escrever("Seu Salário Este Mês Mais Comissão Será de:");
             Escrever(vend.CalculaSalario().ToString());
+            vend.Gravar();
         }
 
         private static void CadastroADMCompleto()
@@ -81,13 +81,14 @@ namespace Aula
             Escrever("Digite o Salário:");
             decimal salario = Convert.ToDecimal(Console.ReadLine());
 
-            Escrever("Digite os Dias Trabalhados");
+            Escrever("Se faltou, digite a quantidae de dias:");
             int diasFalta = Convert.ToInt32(Console.ReadLine());
 
             ADM adm = new ADM(nome, descricao, salario, diasFalta);
-
-            Escrever("Seu Salário Este Mês Será de................:");
+            
+            Escrever("Seu Salário Este Mês Será de:");
             Escrever(adm.CalculaSalario().ToString());
+            adm.Gravar();
         }
 
         private static void CadastroAnalistaTICompleto()
@@ -110,9 +111,10 @@ namespace Aula
             int diasTrabalhados = Convert.ToInt32(Console.ReadLine());
 
             AnalistaTI TI = new AnalistaTI(nome, descricao, salario, horasExtras, diasTrabalhados);
-
-            Escrever("Seu Salário Este Mês Mais Horas Extras Será de................:");
+            
+            Escrever("Seu Salário Este Mês Mais Horas Extras Será de:");
             Escrever(TI.CalculaSalario().ToString());
+            TI.Gravar();
         }
         private static void CadastroPessoal()
         {
@@ -126,21 +128,17 @@ namespace Aula
 
             string escolha = Console.ReadLine();
 
-
             if (escolha == "1")
             {
                 CadastroPessoaCompleto();
-
             }
             else if (escolha == "2")
             {
                 CadastroPessoaJuridicaCompleto();
-
             }
             else if (escolha == "3")
             {
                 CadastroPessoaFisicaCompleto();
-
             }
         }
 
@@ -195,9 +193,9 @@ namespace Aula
             string cnpj = Console.ReadLine();
             cnpj = cnpj.ToUpper();
 
-            PessoaJuridica pessoaJuridica = new PessoaJuridica(n, dtnascimento, sobrenome, cnpj, olhos);
+            PessoaJuridica pj = new PessoaJuridica(n, dtnascimento, sobrenome, cnpj, olhos);
 
-            pessoaJuridica.Gravar();
+            pj.Gravar();
         }
 
         private static void CadastroPessoaCompleto()
@@ -225,8 +223,6 @@ namespace Aula
         static void Escrever(string mensagemParaPrintarNaTela)
         {
             Console.WriteLine(mensagemParaPrintarNaTela);
-
         }
     }
-
 }
