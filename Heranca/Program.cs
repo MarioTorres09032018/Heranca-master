@@ -1,5 +1,9 @@
 ﻿using Cadastro;
 using System;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Channels;
 
 namespace Aula
 {
@@ -7,6 +11,7 @@ namespace Aula
     {
         static void Main()
         {
+           
             CadastroPessoal();
 
             CadastroCargo();
@@ -16,13 +21,15 @@ namespace Aula
 
         private static void CadastroCargo()
         {
-            Escrever("Digite o Cargo Exercido ou Informações dos Cargos Exercidos:");
+            Escrever("");
+            Escrever("Digite o Cargo Exercido:");
             Escrever("1 - Vendedor");
             Escrever("2 - ADM");
             Escrever("3 - Analista TI");
+            Escrever("4 - Sair");
 
             string escolha = Console.ReadLine();
-
+           
             switch (escolha)
             {
                 case "1":
@@ -33,15 +40,23 @@ namespace Aula
                     CadastroADMCompleto();
                     break;
 
-                    case "3":
+                case "3":
                     CadastroAnalistaTICompleto();
                     break;
-                
+
                 default:
-                    Escrever("Cargo nao cadastrado.");
+                    Console.Clear();
+                    Console.WriteLine("***Cargo Não Cadasatrado!***");
                     break;
             }
-        }
+            while (escolha == "4")
+            {
+                Console.WriteLine("Aplicação sendo encerrada, digite uma tecla para finalizar.");
+                Environment.Exit(0);
+            }
+             CadastroCargo();
+
+                   }
         private static void CadastroVendedorCompleto()
         {
             Escrever("Digite o Nome do Cargo:");
@@ -119,7 +134,6 @@ namespace Aula
         private static void CadastroPessoal()
         {
             Escrever("Bem vindo ao sistema de cadastro pessoas");
-
             Escrever("Escolha uma das opcoes:");
             Escrever("");
             Escrever("1 - Pessoa");
@@ -139,9 +153,16 @@ namespace Aula
             else if (escolha == "3")
             {
                 CadastroPessoaFisicaCompleto();
+            }else if (escolha != "1" && escolha != "2" && escolha != "3")
+                
+            {
+                Console.Clear();
+                Console.WriteLine("***Opção Inválida!***");
+                CadastroPessoal();
             }
+                CadastroCargo();
+                        
         }
-
         private static void CadastroPessoaFisicaCompleto()
         {
             Escrever("Digite seu nome");
@@ -154,7 +175,7 @@ namespace Aula
 
             Escrever("Digite seu Data Nascimento");
             DateTime dtnascimento = Convert.ToDateTime(Console.ReadLine());
-
+           
             Escrever("Digite a cor dos seus olhos");
             string olhos = Console.ReadLine();
             olhos = olhos.ToUpper();
@@ -207,14 +228,14 @@ namespace Aula
             Escrever("Digite seu sobrenome");
             string sobrenome = Console.ReadLine();
             sobrenome = sobrenome.ToUpper();
-
+            
             Escrever("Digite seu Data Nascimento");
             DateTime dtnascimento = Convert.ToDateTime(Console.ReadLine());
 
             Escrever("Digite a cor dos seus olhos");
             string olhos = Console.ReadLine();
             olhos = olhos.ToUpper();
-
+          
             Pessoa pes = new Pessoa(n, dtnascimento, sobrenome, olhos);
 
             pes.Gravar();
@@ -224,5 +245,7 @@ namespace Aula
         {
             Console.WriteLine(mensagemParaPrintarNaTela);
         }
+
     }
+
 }
